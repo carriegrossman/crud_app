@@ -13,12 +13,14 @@
         <button>Add Task</button>
     </fieldset>
 
-    
     <script>
+
+
         const submit = async ()=>{
             let value = document.querySelector("input").value;
             let response = await request("/new-task", 'POST', {title:value})
         }
+
         const request = async (url, method, data)=>{
             let response = await fetch(url, {
                 method:method,
@@ -29,7 +31,9 @@
             });
             return response.json();
         }
+
         document.querySelector("button").addEventListener("click", submit);
+
     </script>
 </body>
 </html>

@@ -1,24 +1,17 @@
 const express = require('express');
 const app = express();
-const pgp = require("pg-promise")();
-const port = 3006;
-const connect = require('./config')
-const path = require('path')
-
+const pgp = require('pg-promise')();
+const connect = require('./config');
+const path = require("path");
 const db = pgp(connect);
 
-// app.use(express.urlencoded({extended: true}));
-app.use(express.json);
+const port = 5005;
 
-app.get("/", (req,res)=>{
-    res.sendFile(__dirname + path.join("/site/index.html"))
-})
+//app.use(express.urlencoded({extended:true}))
+//app.use(express.json);
+app.use(express.json())
 
-// app.get("/tasks", (req,res)=>{
-//     db.any("SELECT * from TASKS").then((tasks) => res.send(tasks));
-// })
-
-//these two are the same
+app.get("/", (req,res)=>res.sendFile(__dirname + path.join("/site/index.html")))
 
 app.get("/tasks", async (req, res)=>{
     const data = await db.any('SELECT * FROM tasks');
@@ -42,9 +35,8 @@ app.patch('/edit-task/:id/complete_task', async (req,res)=>{
     res.send(result);
 })
 
-// app.patch('/edit-task/:id/title', )
+app.patch('/edit-task/:id/title', )
 
-
-app.listen(port, () => {
-    console.log(`This app is running on http://localhost:${port}`);
-  });
+app.listen(port, ()=>{
+    console.log(`http://localhost:${port}`)
+})
