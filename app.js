@@ -11,7 +11,7 @@ const db = pgp(connect);
 app.use(express.json);
 
 app.get("/", (req,res)=>{
-    res.sendFile(__dirname + path.join("/index.html"))
+    res.sendFile(__dirname + path.join("/site/index.html"))
 })
 
 // app.get("/tasks", (req,res)=>{
