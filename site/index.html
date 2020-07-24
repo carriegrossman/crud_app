@@ -34,7 +34,7 @@
                     <input type="checkbox" ${task.is_completed ? 'checked': ""} class="completed">
                     <button class="delete" id="delete_${task.id}">Delete</button> 
                     <input type="text" id="edit_title" placeholder="Edit A Task">
-                    <button class="titlebutton" id="title_${task.id}">Change Title</button> 
+                    <button class="changetitle" id="title_${task.id}">Change Title</button> 
                 </div>
             `).sort((a,b)=>a.id-b.id).join("");
             
@@ -51,7 +51,7 @@
                     let result = await request(`/delete-task/${evt.target.parentNode.id}`, 'DELETE')
                 })
             })
-            document.querySelectorAll(".titlebutton").forEach(button=>{
+            document.querySelectorAll(".changetitle").forEach(button=>{
                 button.addEventListener('click', async (evt)=>{
                     let value = document.getElementById('edit_title').value
                     let result = await request(`/edit-task/${evt.target.parentNode.id}/${value}`, 'PATCH')
