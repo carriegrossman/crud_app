@@ -29,10 +29,12 @@
             let tasks = await request("/tasks", 'GET');
             document.getElementById("tasks").innerHTML = 
             tasks.map(task=>`
-                <div id='${task.id}'> 
+            <div id='${task.id}'> 
                     ${task.title} 
                     <input type="checkbox" ${task.is_completed ? 'checked': ""} class="completed">
                     <button class="delete" id="delete_${task.id}">Delete</button> 
+                    <input type="text" id="edit_title" placeholder="Edit A Task">
+                    <button class="titlebutton" id="title_${task.id}">Change Title</button> 
                 </div>
             `).sort((a,b)=>a.id-b.id).join("");
             
@@ -42,9 +44,21 @@
                     console.log(result);
                 })
             })
-            
+            document.querySelectorAll(".delete").forEach(button=>{
+                button.addEventListener('click', async (evt)=>{
+                    let parent = document.getElementById(`${evt.target.parentNode.id}`)
+                    parent.remove()
+                    let result = await request(`/delete-task/${evt.target.parentNode.id}`, 'DELETE')
+                })
+            })
+            document.querySelectorAll(".titlebutton").forEach(button=>{
+                button.addEventListener('click', async (evt)=>{
+                    let value = document.getElementById('edit_title').value
+                    let result = await request(`/edit-task/${evt.target.parentNode.id}/${value}`, 'PATCH')
+                    console.log(result);
+                })
+            })
         }
-
         start();
     </script>
 </body>

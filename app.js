@@ -35,7 +35,20 @@ app.patch('/edit-task/:id/complete_task', async (req,res)=>{
     res.send(result);
 })
 
-app.patch('/edit-task/:id/title', )
+app.patch('/edit-task/:id/:title', async (req,res)=>{
+    let result = await db.one(`
+        UPDATE tasks 
+        SET title = '${req.params.title}' 
+        WHERE id='${req.params.id}' RETURNING *
+    `);
+    res.send(result);
+})
+
+app.delete('/delete-task/:id', async (req,res)=>{
+    let result = await db.one(`DELETE FROM tasks WHERE id='${req.params.id}' RETURNING *`)
+    res.send(result)
+})
+
 
 app.listen(port, ()=>{
     console.log(`http://localhost:${port}`)
