@@ -45,9 +45,11 @@ app.patch('/edit-task/:id/:title', async (req,res)=>{
 })
 
 app.delete('/delete-task/:id', async (req,res)=>{
-    let result = await db.one(`DELETE FROM tasks WHERE id='${req.params.id}' RETURNING *`)
+    let result = await db.one(`DELETE FROM tasks 
+    WHERE id='${req.params.id}' RETURNING *`)
     res.send(result)
 })
+
 
 
 app.listen(port, ()=>{

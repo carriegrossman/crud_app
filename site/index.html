@@ -9,6 +9,10 @@
     <div id="tasks">
 
     </div>
+
+    <a href='/new-task'>
+        <button>Create a new Task!</button>
+      </a>
     <script>
         const request = async (url, method, data)=>{
             let options = {
@@ -33,7 +37,7 @@
                     ${task.title} 
                     <input type="checkbox" ${task.is_completed ? 'checked': ""} class="completed">
                     <button class="delete" id="delete_${task.id}">Delete</button> 
-                    <input type="text" id="edit_title" placeholder="Edit A Task">
+                    <input type="text" id="edit_title" placeholder="Edit Task">
                     <button class="changetitle" id="title_${task.id}">Change Title</button> 
                 </div>
             `).sort((a,b)=>a.id-b.id).join("");
